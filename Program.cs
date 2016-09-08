@@ -10,13 +10,33 @@ namespace acm_2015_1
     {
         static void Main(string[] args)
         {
-            // Read in values, split on spaces and convert them all to int
-            int[] values = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), int.Parse);
+            // Input values for the stock trend formula
+            int[] values;
 
-            // create a new Stock_Trend object
+            try
+            {
+                // Read in values, split on spaces and convert them all to int
+                values = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), int.Parse);
+
+                // Make sure there's 6 values
+                if (values.Length != 6) throw new Exception("Invalid number of arguments");
+            }
+            catch(Exception e)
+            {
+                // Print a message and exit on any input reading related exceptions
+                Console.WriteLine("Invalid input");
+
+                // wait to exit
+                Console.ReadLine();
+
+                return;
+            }
+            
+
+            // create a new Stock_Trend object, passing the inputted values
             Stock_Trend trend = new Stock_Trend(values[0], values[1], values[2], values[3], values[4], values[5]);
 
-            // print results
+            // Calculate the largest decline and print the results
             Console.WriteLine(trend.calculate_largest_decline());
 
             // wait to exit
